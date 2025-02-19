@@ -1,0 +1,15 @@
+{
+  "OutputFoldersPerTargetSystem": {
+    "Local Machine": [
+      "out\\ARM-Debug",
+      "install\\ARM-Debug",
+      "out\\ARM-Release",
+      "install\\ARM-Release"
+    ]
+  },
+  "ExpandedNodes": [
+    ""
+  ],
+  "SelectedNode": "\\CMakeLists.txt",
+  "PreviewInSolutionExplorer": false
+}

@@ -1,0 +1,4 @@
+{
+  "enableCMake": true,
+  "sourceDirectory": [ "MT3620_Grove_Shield_BME280" ]
+}

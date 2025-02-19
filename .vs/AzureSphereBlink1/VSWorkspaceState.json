@@ -1,0 +1,10 @@
+{
+  "OutputFoldersPerTargetSystem": {
+    "Local Machine": [
+      "AzureSphereBlink1\\out\\ARM-Debug",
+      "AzureSphereBlink1\\install\\ARM-Debug",
+      "AzureSphereBlink1\\out\\ARM-Release",
+      "AzureSphereBlink1\\install\\ARM-Release"
+    ]
+  }
+}

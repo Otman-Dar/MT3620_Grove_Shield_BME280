@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensor Data Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.24.2/plotly.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .chart {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .latest-readings {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .reading-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex: 1;
+            margin: 0 10px;
+            text-align: center;
+        }
+        .reading-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sensor Data Dashboard</h1>
+        
+        <div class="latest-readings">
+            <div class="reading-card">
+                <h3>Temperature</h3>
+                <div id="latest-temp" class="reading-value">--°C</div>
+            </div>
+            <div class="reading-card">
+                <h3>Humidity</h3>
+                <div id="latest-humidity" class="reading-value">--%</div>
+            </div>
+            <div class="reading-card">
+                <h3>Pressure</h3>
+                <div id="latest-pressure" class="reading-value">--hPa</div>
+            </div>
+        </div>
+
+        <div class="chart" id="tempChart"></div>
+        <div class="chart" id="humidityChart"></div>
+        <div class="chart" id="pressureChart"></div>
+    </div>
+
+    <script>
+        function updateCharts() {
+            fetch('/readings')
+                .then(response => response.json())
+                .then(data => {
+                    // Update latest readings
+                    if (data.temperature && data.temperature.length > 0) {
+                        document.getElementById('latest-temp').textContent = 
+                            data.temperature[data.temperature.length - 1].toFixed(1) + '°C';
+                        document.getElementById('latest-humidity').textContent = 
+                            data.humidity[data.humidity.length - 1].toFixed(1) + '%';
+                        document.getElementById('latest-pressure').textContent = 
+                            data.pressure[data.pressure.length - 1].toFixed(1) + 'hPa';
+                    }
+
+                    // Temperature Chart
+                    const tempTrace = {
+                        x: data.timestamps,
+                        y: data.temperature,
+                        type: 'scatter',
+                        name: 'Temperature',
+                        line: { color: '#ff7f0e' }
+                    };
+                    const tempLayout = {
+                        title: 'Temperature Over Time',
+                        yaxis: { title: 'Temperature (°C)' },
+                        height: 300,
+                        margin: { t: 50 }
+                    };
+                    Plotly.newPlot('tempChart', [tempTrace], tempLayout);
+
+                    // Humidity Chart
+                    const humidityTrace = {
+                        x: data.timestamps,
+                        y: data.humidity,
+                        type: 'scatter',
+                        name: 'Humidity',
+                        line: { color: '#2ca02c' }
+                    };
+                    const humidityLayout = {
+                        title: 'Humidity Over Time',
+                        yaxis: { title: 'Humidity (%)' },
+                        height: 300,
+                        margin: { t: 50 }
+                    };
+                    Plotly.newPlot('humidityChart', [humidityTrace], humidityLayout);
+
+                    // Pressure Chart
+                    const pressureTrace = {
+                        x: data.timestamps,
+                        y: data.pressure,
+                        type: 'scatter',
+                        name: 'Pressure',
+                        line: { color: '#1f77b4' }
+                    };
+                    const pressureLayout = {
+                        title: 'Pressure Over Time',
+                        yaxis: { title: 'Pressure (hPa)' },
+                        height: 300,
+                        margin: { t: 50 }
+                    };
+                    Plotly.newPlot('pressureChart', [pressureTrace], pressureLayout);
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+
+        // Update charts immediately and every 5 seconds
+        updateCharts();
+        setInterval(updateCharts, 5000);
+    </script>
+</body>
+</html>
