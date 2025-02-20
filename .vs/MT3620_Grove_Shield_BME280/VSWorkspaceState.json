@@ -1,0 +1,10 @@
+{
+  "OutputFoldersPerTargetSystem": {
+    "Local Machine": [
+      "MT3620_Grove_Shield_BME280\\out\\ARM-Debug",
+      "MT3620_Grove_Shield_BME280\\install\\ARM-Debug",
+      "MT3620_Grove_Shield_BME280\\out\\ARM-Release",
+      "MT3620_Grove_Shield_BME280\\install\\ARM-Release"
+    ]
+  }
+}

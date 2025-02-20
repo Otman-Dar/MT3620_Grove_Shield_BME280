@@ -1,8 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\AzureSphereBlink1"
+    "\\MT3620_Grove_Shield_BME280"
   ],
-  "SelectedNode": "\\AzureSphereBlink1\\CMakeLists.txt",
+  "SelectedNode": "\\MT3620_Grove_Shield_BME280\\CMakeLists.txt",
   "PreviewInSolutionExplorer": false
 }
